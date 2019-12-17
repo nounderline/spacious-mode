@@ -11,9 +11,6 @@
 (defun spacious-mode-on ()
   (spacious-mode +1))
 
-(defun spacious-mode-off (&optional any)
-  (spacious-mode -1))
-
 ;; TODO walk all touched windows
 (defun spacious-mode (&optional toggle)
   (interactive)
