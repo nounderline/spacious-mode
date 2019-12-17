@@ -39,22 +39,15 @@
 
         (message "Spacious mode disabled"))
 
-    (if (window-parent)
-        (message "Spaciousness can be only obtained with one window")
+    (progn
+      (setq spacious-mode t)
 
-      (progn
-        (setq spacious-mode t)
+      (add-hook 'window-configuration-change-hook 'spacious-mode--adjust-windows)
+      (add-hook 'window-setup-hook 'spacious-mode-on)
+      (advice-add 'split-window-right :before 'spacious-mode--reset-window)
 
-        (add-hook 'window-configuration-change-hook 'spacious-mode--adjust-windows)
-        (add-hook 'window-setup-hook 'spacious-mode-on)
-        (advice-add 'split-window-right :before 'spacious-mode--reset-window)
+      (spacious-mode--adjust-windows)
 
-        (let* ((win (get-buffer-window))
-               (content-width 80)
-               (full-width (window-total-width))
-               (margin (floor (/ (- full-width content-width) 2))))
-          (set-window-margins win margin margin))
-
-        (message "Spacious mode enabled")))))
+      (message "Spacious mode enabled"))))
 
 (provide 'spacious-mode)
