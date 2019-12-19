@@ -2,7 +2,7 @@
 
 ;; Author: Rafael Gutkowski <rgtk@protonmail.com>
 ;; URL: https://github.com/rgtk/spacious-mode
-;; Version: 1.1.0
+;; Version: 1.1.1
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 ;; along with GNU Emacs; see the file COPYING.
 ;; If not, see http://www.gnu.org/licenses.
 
-;;;; Commentary
+;;; Commentary
 
 ;; spacious-mode balances available whitespace for more aesthetic experience
 ;; with your Emacs.
@@ -32,7 +32,7 @@
   (walk-windows
    (lambda (window)
      (unless (window-minibuffer-p window)
-       (let ((margin (floor (/ (- (window-total-width window) 80) 2))))
+       (let ((margin (max 0 (floor (/ (- (window-total-width window) 80) 2)))))
          (set-window-margins window margin margin))))))
 
 (defun spacious-mode-on ()
